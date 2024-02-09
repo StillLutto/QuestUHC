@@ -4,7 +4,7 @@ countdown-seconds: 30
 lobby-spawn:
   world: 'world'
   x: 8.5
-  y: -61.5
+  y: 61.5
   z: 8.5
   yaw: 180
   pitch: 0
