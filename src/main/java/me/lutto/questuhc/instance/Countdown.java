@@ -3,6 +3,7 @@ package me.lutto.questuhc.instance;
 import me.lutto.questuhc.QuestUHC;
 import me.lutto.questuhc.enums.GameState;
 import me.lutto.questuhc.manager.ConfigManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -28,7 +29,7 @@ public class Countdown extends BukkitRunnable {
 
         if (countdownSeconds == 0) {
             cancel();
-            // arena start
+            arena.start();
             return;
         }
 
