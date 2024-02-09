@@ -81,9 +81,7 @@ public class Arena {
 
     public void removePlayer(Player player) {
         players.remove(player.getUniqueId());
-        Bukkit.getScheduler().runTaskLaterAsynchronously(questUHC, () -> {
-            player.teleport(ConfigManager.getLobbySpawn());
-        }, 100);
+        player.teleport(ConfigManager.getLobbySpawn());
         player.sendTitle("", "");
 
         if (state == GameState.COUNTDOWN && players.size() < ConfigManager.getMinRequiredPlayers()) {
