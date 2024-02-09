@@ -2,3 +2,5 @@ name: QuestUHC
 version: '${project.version}'
 main: me.lutto.questuhc.QuestUHC
 api-version: '1.20'
+commands:
+  arena:
