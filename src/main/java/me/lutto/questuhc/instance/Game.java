@@ -31,8 +31,8 @@ public class Game {
 
         arena.setState(GameState.LIVE);
 
-        arena.sendTitle(ChatColor.GREEN + "Game has started!", "Your objective is to kill 4 animals and you will get a secret weapon!");
-        arena.sendMessage(ChatColor.GREEN + "Game has started!\n" + ChatColor.GRAY + "Your objective is to kill 4 animals and you will get a secret weapon!");
+        arena.sendTitle(ChatColor.BLUE + "Game has started!", "Complete your objective!");
+        arena.sendMessage(ChatColor.GREEN + "Game has started!\n" + ChatColor.BLUE + "Your objective is to kill 4 animals and you will get a secret weapon!");
 
         for (UUID uuid : arena.getPlayers()) {
             points.put(uuid, 0);
