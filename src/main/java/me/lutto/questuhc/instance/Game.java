@@ -35,11 +35,10 @@ public class Game {
         arena.sendMessage(ChatColor.GREEN + "Game has started!\n" + ChatColor.BLUE + "Your objective is to kill 4 animals and you will get a secret weapon!");
 
         for (UUID uuid : arena.getPlayers()) {
-            points.put(uuid, 0);
-        }
 
-        for (UUID uuid : arena.getPlayers()) {
+            points.put(uuid, 0);
             Player player = Bukkit.getPlayer(uuid);
+            player.setInvulnerable(false);
 
             while (!playersTeleported.contains(uuid)) {
 
