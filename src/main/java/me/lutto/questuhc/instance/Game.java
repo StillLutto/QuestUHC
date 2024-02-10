@@ -4,7 +4,9 @@ import me.lutto.questuhc.enums.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTakeLecternBookEvent;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,6 +39,8 @@ public class Game {
         }
 
         for (UUID uuid : arena.getPlayers()) {
+            Player player = Bukkit.getPlayer(uuid);
+
             while (!playersTeleported.contains(uuid)) {
 
                 Location firstCorner = arena.getFirstCorner();
@@ -46,10 +50,12 @@ public class Game {
 
                 if (blockedArea.contains(randomLocation)) continue;
 
-                Bukkit.getPlayer(uuid).teleport(randomLocation);
+                player.teleport(randomLocation);
+                randomLocation.getWorld().strikeLightningEffect(randomLocation);
+                player.playSound(player, Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 1, 1);
+
                 addBlockedArea(randomLocation);
                 playersTeleported.add(uuid);
-
             }
         }
 
