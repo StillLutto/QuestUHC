@@ -94,10 +94,23 @@ public class Arena {
             return;
         }
 
-        if (state == GameState.LIVE && players.size() < ConfigManager.getMinRequiredPlayers()) {
-            sendMessage(ChatColor.GREEN + "The game has ended because too many players left.");
-            reset(false);
+        if (state == GameState.LIVE && players.size() <= 1) {
+            win(Bukkit.getPlayer(players.getFirst()));
         }
+    }
+
+    public void win(Player player) {
+        players.remove(player.getUniqueId());
+
+        sendTitle(ChatColor.RED + "You lost the game!", ChatColor.GRAY + "Care to try again?");
+        player.sendTitle(ChatColor.GOLD + "You won the game!", "Congratulations!", 10, 80, 10);
+
+        player.setInvulnerable(true);
+        Bukkit.getScheduler().runTaskLater(questUHC, () -> {
+            player.teleport(ConfigManager.getLobbySpawn());
+            reset(true);
+        }, 100);
+
     }
 
     public int getId() { return id; }

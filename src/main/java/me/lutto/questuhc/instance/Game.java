@@ -64,9 +64,7 @@ public class Game {
 
         int playerPoints = points.get(player.getUniqueId()) + 1;
         if (playerPoints == 4) {
-            arena.sendTitle(ChatColor.GOLD + player.getName() + " has won!", "");
-            arena.sendMessage(ChatColor.GREEN + player.getName() + " has won!");
-            arena.reset(true);
+            arena.win(player);
             return;
         }
 
