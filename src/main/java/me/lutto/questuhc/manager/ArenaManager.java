@@ -18,13 +18,21 @@ public class ArenaManager {
 
         FileConfiguration config = questUHC.getConfig();
         for (String arenaConfig : config.getConfigurationSection("arenas.").getKeys(false)) {
-            arenas.add(new Arena(questUHC, Integer.parseInt(arenaConfig), new Location(
-                    Bukkit.getWorld(config.getString("arenas." + arenaConfig + ".world")),
-                    config.getDouble("arenas." + arenaConfig + ".x"),
-                    config.getDouble("arenas." + arenaConfig + ".y"),
-                    config.getDouble("arenas." + arenaConfig + ".z"),
-                    (float) config.getDouble("arenas." + arenaConfig + ".yaw"),
-                    (float) config.getDouble("arenas." + arenaConfig + ".pitch"))));
+            arenas.add(new Arena(questUHC, Integer.parseInt(arenaConfig),
+                    new Location(Bukkit.getWorld(config.getString("arenas." + arenaConfig + ".world")),
+                            config.getDouble("arenas." + arenaConfig + ".spawn-location.x"),
+                            config.getDouble("arenas." + arenaConfig + ".spawn-location.y"),
+                            config.getDouble("arenas." + arenaConfig + ".spawn-location.z"),
+                            (float) config.getDouble("arenas." + arenaConfig + ".spawn-location.yaw"),
+                            (float) config.getDouble("arenas." + arenaConfig + ".spawn-location.pitch")),
+                    new Location(Bukkit.getWorld(config.getString("arenas." + arenaConfig + ".world")),
+                            config.getDouble("arenas." + arenaConfig + ".first-corner.x"),
+                            config.getDouble("arenas." + arenaConfig + ".first-corner.y"),
+                            config.getDouble("arenas." + arenaConfig + ".first-corner.z")),
+                    new Location(Bukkit.getWorld(config.getString("arenas." + arenaConfig + ".world")),
+                            config.getDouble("arenas." + arenaConfig + ".second-corner.x"),
+                            config.getDouble("arenas." + arenaConfig + ".second-corner.y"),
+                            config.getDouble("arenas." + arenaConfig + ".second-corner.z"))));
         }
 
     }

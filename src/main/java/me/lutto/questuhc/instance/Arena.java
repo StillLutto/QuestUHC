@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.map.MapRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +18,22 @@ public class Arena {
 
     private int id;
     private Location spawn;
+    private Location firstCorner;
+    private Location secondCorner;
 
     private GameState state;
     private List<UUID> players;
     private Countdown countdown;
     private Game game;
 
-    public Arena(QuestUHC questUHC, int id, Location spawn) {
+    public Arena(QuestUHC questUHC, int id, Location spawn, Location firstCorner, Location secondCorner) {
         this.questUHC = questUHC;
 
         this.id = id;
         this.spawn = spawn;
+
+        this.firstCorner = firstCorner;
+        this.secondCorner = secondCorner;
 
         this.state = GameState.RECRUITING;
         this.players = new ArrayList<>();
@@ -102,6 +106,9 @@ public class Arena {
     public List<UUID> getPlayers() { return players; }
 
     public Game getGame() { return game; }
+
+    public Location getFirstCorner() { return firstCorner; }
+    public Location getSecondCorner() { return secondCorner; }
 
     public void setState(GameState state) { this.state = state; }
 

@@ -11,15 +11,27 @@ lobby-spawn:
 arenas:
   0:
     world: 'world'
-    x: -16.5
-    y: 61
-    z: -29.5
-    yaw: 180
-    pitch: 0
+    spawn-location:
+      x: -13.5
+      y: 88.0625
+      z: -26.5
+      yaw: 180
+      pitch: 0
+    first-corner:
+      x: 45.5
+      y: 61
+      z: -1.5
+    second-corner:
+      x: 18.5
+      y: 61
+      z: -54.5
   1:
     world: 'world'
-    x: 31
-    y: 61
-    z: -29.5
-    yaw: 180
-    pitch: 0
+    spawn-location:
+      x: 33.5
+      y: 88.0625
+      z: -26.5
+      yaw: 180
+      pitch: 0
+    first-corner: -1.5 61 -1.5
+    second-corner: -28.5 61 -54.5
