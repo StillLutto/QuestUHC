@@ -7,6 +7,7 @@ import org.bukkit.entity.Animals;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class GameListener implements Listener {
 
@@ -27,6 +28,18 @@ public class GameListener implements Listener {
         if (!arena.getState().equals(GameState.LIVE));
 
         arena.getGame().addPoint(event.getEntity().getKiller());
+
+    }
+
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+
+        Arena arena = questUHC.getArenaManager().getArena(event.getEntity());
+        if (arena == null) return;
+        if (!arena.getState().equals(GameState.LIVE));
+
+        arena.removePlayer(event.getEntity());
+
     }
 
 }
