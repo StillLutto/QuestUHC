@@ -18,9 +18,8 @@ public class ConnectListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-
         event.getPlayer().teleport(ConfigManager.getLobbySpawn());
-
+        event.getPlayer().setInvulnerable(true);
     }
 
     @EventHandler
