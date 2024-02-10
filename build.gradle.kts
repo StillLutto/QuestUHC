@@ -5,6 +5,7 @@ plugins {
 
 repositories {
     mavenLocal()
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven {
         url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     }
@@ -19,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.org.spigotmc.spigot.api)
+    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
 }
 
 group = "me.lutto"
