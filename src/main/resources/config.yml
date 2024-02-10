@@ -33,5 +33,11 @@ arenas:
       z: -26.5
       yaw: 180
       pitch: 0
-    first-corner: -1.5 61 -1.5
-    second-corner: -28.5 61 -54.5
+    first-corner:
+      x: -1.5
+      y: 61
+      z: -1.5
+    second-corner:
+      x: -28.5
+      y: 61
+      z: -54.5
