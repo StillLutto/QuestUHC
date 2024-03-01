@@ -1,6 +1,8 @@
 plugins {
     `java-library`
     `maven-publish`
+    kotlin("jvm")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -17,10 +19,12 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+    mavenCentral()
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 group = "me.lutto"
@@ -45,4 +49,8 @@ tasks.withType<Javadoc>() {
 tasks.withType<Jar> {
     // customize this to your needs
     destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\QuestUHC Server\\plugins")
+}
+
+kotlin {
+    jvmToolchain(17)
 }
