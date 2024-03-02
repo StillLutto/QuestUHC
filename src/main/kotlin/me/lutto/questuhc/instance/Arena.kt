@@ -5,6 +5,7 @@ import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.manager.ConfigManager
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
+import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
@@ -56,7 +57,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     fun sendTitle(title: String, subtitle: String) {
         for (playerUUID in players) {
-            Bukkit.getPlayer(playerUUID)?.showTitle(Title.title(MiniMessage.miniMessage().deserialize(title), MiniMessage.miniMessage().deserialize(title)))
+            Bukkit.getPlayer(playerUUID)?.showTitle(Title.title(MiniMessage.miniMessage().deserialize(title), MiniMessage.miniMessage().deserialize(subtitle)))
         }
     }
 
@@ -89,9 +90,10 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     fun win(player: Player) {
         players.remove(player.getUniqueId())
 
-        sendTitle("${ChatColor.RED}You lost the game!", "${ChatColor.GRAY}Care to try again?")
-        player.sendTitle("${ChatColor.GREEN}You won the game!", "Congratulations!", 10, 80, 10)
-
+        sendTitle("<red>You lost the game!", "<gray>Care to try again?")
+        player.showTitle(Title.title(
+            Component.text("You won the game!", NamedTextColor.GREEN),
+            Component.text("Congratulations!")))
         player.setInvulnerable(true)
         Bukkit.getScheduler().runTaskLater(questUHC, Runnable {
             player.teleport(ConfigManager.getLobbySpawn())
