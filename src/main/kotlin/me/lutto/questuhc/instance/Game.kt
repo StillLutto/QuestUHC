@@ -62,9 +62,10 @@ class Game(private val arena: Arena) {
     }
 
     private fun addBlockedArea(centerLocation: Location) {
-        for (x in 0..9) {
-            for (z in 0..9) {
-                val currentLocation = centerLocation.add(x.toDouble(), 0.0, z.toDouble())
+        val radius = 10
+        for (x in -radius..radius) {
+            for (z in -radius..radius) {
+                val currentLocation = centerLocation.clone().add(x.toDouble(), 0.0, z.toDouble())
                 blockedArea.add(currentLocation)
             }
         }
