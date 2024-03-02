@@ -23,10 +23,10 @@ class Countdown(private val questUHC: QuestUHC, private val arena: Arena) : Bukk
         }
 
         if (countdownSeconds % 10 == 0 || countdownSeconds <= 5) {
-            arena.sendMessage(ChatColor.GREEN.toString() + "Game starts in " + countdownSeconds + " second" + (if (countdownSeconds == 1) "." else "s."))
+            arena.sendMessage("<green>Game starts in $countdownSeconds second${if (countdownSeconds == 1) "." else "s."}")
             arena.sendTitle(
-                ChatColor.GREEN.toString() + countdownSeconds + " second" + (if (countdownSeconds == 1) "." else "s."),
-                ChatColor.GRAY.toString() + "until game starts."
+                "${ChatColor.GREEN}$countdownSeconds second${if (countdownSeconds == 1) "." else "s."}",
+                "${ChatColor.GRAY}until game starts."
             )
         }
 

@@ -46,7 +46,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     fun sendMessage(message: String) {
         for (playerUUID in players) {
-            Bukkit.getPlayer(playerUUID)?.sendMessage(message)
+            Bukkit.getPlayer(playerUUID)?.sendRichMessage(message)
         }
     }
 
@@ -72,7 +72,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         player.sendTitle("", "")
 
         if (state == GameState.COUNTDOWN && players.size < ConfigManager.getMinRequiredPlayers()) {
-            sendMessage("${ChatColor.GREEN}There's not enough players to start the game. Resetting the count.")
+            sendMessage("<green>There's not enough players to start the game. Resetting the count.")
             reset(false)
             return
         }

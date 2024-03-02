@@ -1,12 +1,8 @@
 package me.lutto.questuhc.instance
 
 import me.lutto.questuhc.enums.GameState
-import org.bukkit.Bukkit
-import org.bukkit.ChatColor
-import org.bukkit.Location
-import org.bukkit.Sound
+import org.bukkit.*
 import org.bukkit.entity.Player
-import org.bukkit.util.ChatPaginator.ChatPage
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.floor
@@ -26,8 +22,8 @@ class Game(private val arena: Arena) {
         arena.sendTitle("${ChatColor.BLUE}Game has started!", "Complete your objective!")
         arena.sendMessage(
             """
-            ${ChatColor.GREEN}Game has started!
-            ${ChatColor.BLUE}Your objective is to kill 4 animals and you will get a secret weapon!
+            <green>Game has started!
+            <blue>Your objective is to kill 4 animals and you will get a secret weapon!
             """.trimIndent()
         )
 
