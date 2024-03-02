@@ -3,6 +3,10 @@ package me.lutto.questuhc.instance
 import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.manager.ConfigManager
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TextComponent
+import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Location
@@ -52,7 +56,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     fun sendTitle(title: String, subtitle: String) {
         for (playerUUID in players) {
-            Bukkit.getPlayer(playerUUID)?.sendTitle(title, subtitle)
+            Bukkit.getPlayer(playerUUID)?.showTitle(Title.title(MiniMessage.miniMessage().deserialize(title), MiniMessage.miniMessage().deserialize(title)))
         }
     }
 
@@ -69,7 +73,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     fun removePlayer(player: Player) {
         players.remove(player.getUniqueId())
         player.teleport(ConfigManager.getLobbySpawn())
-        player.sendTitle("", "")
+        player.clearTitle()
 
         if (state == GameState.COUNTDOWN && players.size < ConfigManager.getMinRequiredPlayers()) {
             sendMessage("<green>There's not enough players to start the game. Resetting the count.")

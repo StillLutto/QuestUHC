@@ -19,7 +19,7 @@ class Game(private val arena: Arena) {
     fun start() {
         arena.setState(GameState.LIVE)
 
-        arena.sendTitle("${ChatColor.BLUE}Game has started!", "Complete your objective!")
+        arena.sendTitle("<blue>Game has started!", "Complete your objective!")
         arena.sendMessage(
             """
             <green>Game has started!
