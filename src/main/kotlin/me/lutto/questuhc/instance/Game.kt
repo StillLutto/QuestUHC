@@ -33,7 +33,9 @@ class Game(private val arena: Arena) {
 
         for (uuid: UUID in arena.getPlayers()) {
             points[uuid] = 0
-            Bukkit.getPlayer(uuid)?.closeInventory()
+            val player: Player = Bukkit.getPlayer(uuid) ?: return
+            player.closeInventory()
+            player.gameMode = GameMode.SURVIVAL
         }
 
         teleportPlayers()

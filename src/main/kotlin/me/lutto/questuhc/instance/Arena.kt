@@ -14,6 +14,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
@@ -99,13 +100,15 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     }
 
     fun win(player: Player) {
-        players.remove(player.getUniqueId())
+        players.clear()
 
         sendTitle("<red>You lost the game!", "<gray>Care to try again?")
         player.showTitle(Title.title(
             Component.text("You won the game!", NamedTextColor.GREEN),
             Component.text("Congratulations!")))
-        player.setInvulnerable(true)
+
+        player.gameMode = GameMode.ADVENTURE
+        player.isInvulnerable = true
         Bukkit.getScheduler().runTaskLater(questUHC, Runnable {
             player.teleport(ConfigManager.getLobbySpawn())
             reset(true)

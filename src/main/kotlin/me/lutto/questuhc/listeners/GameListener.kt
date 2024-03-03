@@ -5,13 +5,18 @@ import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.instance.Arena
 import me.lutto.questuhc.kit.KitType
 import net.kyori.adventure.text.minimessage.MiniMessage
+import org.bukkit.Bukkit
+import org.bukkit.GameMode
+import org.bukkit.Location
 import org.bukkit.entity.Animals
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerRespawnEvent
 
 class GameListener(private val questUHC: QuestUHC) : Listener {
 
@@ -25,7 +30,6 @@ class GameListener(private val questUHC: QuestUHC) : Listener {
             && event.currentItem != null
             ) {
             event.isCancelled = true
-            println("after")
 
             val type: KitType = KitType.valueOf(event.currentItem!!.itemMeta.localizedName)
 
@@ -55,10 +59,15 @@ class GameListener(private val questUHC: QuestUHC) : Listener {
 
     @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
-        val arena = questUHC.arenaManager.getArena(event.entity) ?: return
+        val arena = questUHC.arenaManager.getArena(event.player) ?: return
         if (arena.getState() != GameState.LIVE) return
 
-        arena.removePlayer(event.entity)
+        val player: Player = event.player
+        player.gameMode = GameMode.SPECTATOR
+        val playerDeathLocation = Location(player.world, player.x, player.y, player.z)
+        player.setRespawnLocation(playerDeathLocation, true)
+
+        arena.removePlayer(event.player)
     }
 
 }
