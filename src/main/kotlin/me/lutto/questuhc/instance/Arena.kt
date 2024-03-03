@@ -2,14 +2,18 @@ package me.lutto.questuhc.instance
 
 import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
+import me.lutto.questuhc.kit.Kit
+import me.lutto.questuhc.kit.KitType
+import me.lutto.questuhc.kit.KitUI
+import me.lutto.questuhc.kit.type.ArcherKit
+import me.lutto.questuhc.kit.type.MinerKit
+import me.lutto.questuhc.kit.type.WarriorKit
 import me.lutto.questuhc.manager.ConfigManager
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.Location
 import org.bukkit.entity.Player
 
@@ -19,12 +23,14 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     private var state: GameState
     private var players: MutableList<UUID>
+    private var kits: MutableMap<UUID, Kit>
     private var countdown: Countdown
     private var game: Game
 
     init {
         state = GameState.RECRUITING
         players = mutableListOf()
+        kits = mutableMapOf()
         countdown = Countdown(questUHC, this)
         game = Game(this)
     }
@@ -38,10 +44,12 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
             val lobbySpawn = ConfigManager.getLobbySpawn()
             for (uuid in players) {
                 Bukkit.getPlayer(uuid)?.teleport(lobbySpawn)
+                removeKit(uuid)
             }
             players.clear()
         }
 
+        kits.clear()
         sendTitle("", "")
         state = GameState.RECRUITING
         countdown.cancel()
@@ -64,6 +72,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     fun addPlayer(player: Player) {
         players.add(player.getUniqueId())
         player.teleport(spawn)
+        KitUI(player)
 
         if (state != GameState.RECRUITING) return
         if (players.size >= ConfigManager.getMinRequiredPlayers()) {
@@ -72,9 +81,11 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     }
 
     fun removePlayer(player: Player) {
-        players.remove(player.getUniqueId())
+        players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobbySpawn())
         player.clearTitle()
+
+        removeKit(player.uniqueId)
 
         if (state == GameState.COUNTDOWN && players.size < ConfigManager.getMinRequiredPlayers()) {
             sendMessage("<green>There's not enough players to start the game. Resetting the count.")
@@ -106,6 +117,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     fun getState(): GameState = state
     fun getPlayers(): MutableList<UUID> = players
+    fun getKits(): MutableMap<UUID, Kit> = kits
 
     fun getGame(): Game = game
 
@@ -113,5 +125,25 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     fun getSecondCorner(): Location = secondCorner
 
     fun setState(state: GameState) { this.state = state; }
+
+    fun removeKit(uuid: UUID) {
+        if (kits.contains(uuid)) {
+            kits[uuid]?.remove()
+            kits.remove(uuid)
+        }
+    }
+
+    fun setKit(uuid: UUID, type: KitType) {
+        removeKit(uuid)
+        when (type) {
+            KitType.WARRIOR -> kits[uuid] = WarriorKit(questUHC, uuid)
+            KitType.MINER -> kits[uuid] = MinerKit(questUHC, uuid)
+            KitType.ARCHER -> kits[uuid] = ArcherKit(questUHC, uuid)
+        }
+    }
+
+    fun getKit(player: Player): KitType? {
+        return if (kits.contains(player.uniqueId)) kits[player.uniqueId]?.type else null
+    }
 
 }

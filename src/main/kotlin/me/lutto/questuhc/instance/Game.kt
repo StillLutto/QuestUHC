@@ -27,8 +27,31 @@ class Game(private val arena: Arena) {
             """.trimIndent()
         )
 
-        for (uuid in arena.getPlayers()) {
+        for (uuid in arena.getKits().keys) {
+            arena.getKits()[uuid]?.onStart(Bukkit.getPlayer(uuid))
+        }
+
+        for (uuid: UUID in arena.getPlayers()) {
             points[uuid] = 0
+            Bukkit.getPlayer(uuid)?.closeInventory()
+        }
+
+        teleportPlayers()
+    }
+
+    fun addPoint(player: Player) {
+        val playerPoints = points[player.uniqueId]!! + 1
+        if (playerPoints == 4) {
+            arena.win(player)
+            return
+        }
+
+        player.sendRichMessage("<green>+1 Point!")
+        points.replace(player.uniqueId, playerPoints)
+    }
+
+    private fun teleportPlayers() {
+        for (uuid in arena.getPlayers()) {
             val player = Bukkit.getPlayer(uuid) ?: return
             player.isInvulnerable = false
 
@@ -48,17 +71,6 @@ class Game(private val arena: Arena) {
                 playersTeleported.add(uuid)
             }
         }
-    }
-
-    fun addPoint(player: Player) {
-        val playerPoints = points[player.uniqueId]!! + 1
-        if (playerPoints == 4) {
-            arena.win(player)
-            return
-        }
-
-        player.sendMessage("${ChatColor.GREEN}+1 Point!")
-        points.replace(player.uniqueId, playerPoints)
     }
 
     private fun addBlockedArea(centerLocation: Location) {
