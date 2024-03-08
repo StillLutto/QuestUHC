@@ -42,7 +42,7 @@ class Game(private val arena: Arena) {
     }
 
     fun addPoint(player: Player) {
-        val playerPoints = points[player.uniqueId]!! + 1
+        val playerPoints = (points[player.uniqueId] ?: return) + 1
         if (playerPoints == 4) {
             arena.win(player)
             return

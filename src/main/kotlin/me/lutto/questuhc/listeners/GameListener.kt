@@ -5,18 +5,15 @@ import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.instance.Arena
 import me.lutto.questuhc.kit.KitType
 import net.kyori.adventure.text.minimessage.MiniMessage
-import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Animals
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.player.PlayerRespawnEvent
 
 class GameListener(private val questUHC: QuestUHC) : Listener {
 
