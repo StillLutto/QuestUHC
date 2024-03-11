@@ -73,6 +73,8 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     }
 
     fun addPlayer(player: Player) {
+        if (players.size <= ConfigManager.getMaxRequiredPlayers()) return
+
         players.add(player.uniqueId)
         player.teleport(spawn)
         KitUI(player)
