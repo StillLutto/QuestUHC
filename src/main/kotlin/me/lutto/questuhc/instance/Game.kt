@@ -26,7 +26,7 @@ class Game(private val arena: Arena) {
             player.closeInventory()
             player.gameMode = GameMode.SURVIVAL
 
-            val quest: Pair<EntityType, Int> = arena.getQuests().getRandomQuest(uuid)
+            val quest: Pair<EntityType, Int> = arena.getQuests().getRandomQuest()
             arena.getQuests().setPlayerQuest(uuid, quest)
 
             player.sendRichMessage("""
