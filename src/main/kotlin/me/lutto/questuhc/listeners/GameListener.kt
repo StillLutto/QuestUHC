@@ -7,11 +7,9 @@ import me.lutto.questuhc.kit.KitType
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.GameMode
 import org.bukkit.Location
-import org.bukkit.entity.Animals
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 

@@ -10,7 +10,6 @@ import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.random.Random
 
 class Game(private val questUHC: QuestUHC, private val arena: Arena) {
 
