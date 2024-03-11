@@ -27,6 +27,7 @@ class Game(private val arena: Arena) {
             player.gameMode = GameMode.SURVIVAL
 
             val quest: Pair<EntityType, Int> = arena.getQuests().getRandomQuest(uuid)
+            arena.getQuests().setPlayerQuest(uuid, quest)
 
             player.sendRichMessage("""
                 <green>Game has started!

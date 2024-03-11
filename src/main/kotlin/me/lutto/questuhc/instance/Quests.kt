@@ -22,10 +22,13 @@ class Quests {
             randomQuest = totalList[Random.nextInt(0, totalList.size)]
             questsGiven.add(randomQuest)
         }
-        playerQuests[uuid] = randomQuest
 
         return randomQuest
 
+    }
+
+    fun setPlayerQuest(uuid: UUID, quest: Pair<EntityType, Int>) {
+        playerQuests[uuid] = quest
     }
 
     fun getPlayerQuests(): MutableMap<UUID, Pair<EntityType, Int>>  = playerQuests
