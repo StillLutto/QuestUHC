@@ -44,17 +44,6 @@ class GameListener(private val questUHC: QuestUHC) : Listener {
     }
 
     @EventHandler
-    fun onEntityDeath(event: EntityDeathEvent) {
-        if (event.entity.killer == null) return
-        if (event.entity !is Animals) return
-
-        val arena = questUHC.arenaManager.getArena(event.entity.killer!!) ?: return
-        if (arena.getState() != GameState.LIVE) return
-
-        arena.getGame().addPoint(event.entity.killer!!)
-    }
-
-    @EventHandler
     fun onPlayerDeath(event: PlayerDeathEvent) {
         val arena = questUHC.arenaManager.getArena(event.player) ?: return
         if (arena.getState() != GameState.LIVE) return

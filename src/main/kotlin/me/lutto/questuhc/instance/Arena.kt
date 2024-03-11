@@ -33,7 +33,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         players = mutableListOf()
         kits = mutableMapOf()
         countdown = Countdown(questUHC, this)
-        game = Game(this)
+        game = Game(questUHC, this)
     }
 
     fun start() {
@@ -55,7 +55,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         state = GameState.RECRUITING
         countdown.cancel()
         countdown = Countdown(questUHC, this)
-        game = Game(this)
+        game = Game(questUHC, this)
     }
 
     fun sendMessage(message: String) {

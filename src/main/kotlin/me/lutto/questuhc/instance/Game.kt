@@ -1,15 +1,18 @@
 package me.lutto.questuhc.instance
 
+import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
 import org.bukkit.*
+import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.random.Random
 
-class Game(private val arena: Arena) {
+class Game(private val questUHC: QuestUHC, private val arena: Arena) {
 
     private val points = HashMap<UUID, Int>()
 
@@ -19,23 +22,25 @@ class Game(private val arena: Arena) {
     fun start() {
         arena.setState(GameState.LIVE)
 
-        arena.sendTitle("<blue>Game has started!", "Complete your objective!")
-        arena.sendMessage(
-            """
-            <green>Game has started!
-            <blue>Your objective is to kill 4 animals and you will get a secret weapon!
-            """.trimIndent()
-        )
-
-        for (uuid in arena.getKits().keys) {
-            arena.getKits()[uuid]?.onStart(Bukkit.getPlayer(uuid))
-        }
-
         for (uuid: UUID in arena.getPlayers()) {
             points[uuid] = 0
             val player: Player = Bukkit.getPlayer(uuid) ?: return
             player.closeInventory()
             player.gameMode = GameMode.SURVIVAL
+
+            val quest: Pair<EntityType, Int> = questUHC.questManager.getRandomQuest(uuid)
+
+            player.sendRichMessage("""
+                <green>Game has started!
+                <gold>Your objective is to kill ${quest.second} ${quest.first.name.lowercase()} and you will get a secret weapon!
+            """.trimIndent()
+            )
+        }
+
+        arena.sendTitle("<blue>Game has started!", "Complete your objective!")
+
+        for (uuid in arena.getKits().keys) {
+            arena.getKits()[uuid]?.onStart(Bukkit.getPlayer(uuid))
         }
 
         teleportPlayers()
@@ -85,7 +90,7 @@ class Game(private val arena: Arena) {
         }
     }
 
-    fun getRandomLocation(firstCorner: Location, secondCorner: Location, yLevel: Double): Location {
+    private fun getRandomLocation(firstCorner: Location, secondCorner: Location, yLevel: Double): Location {
         val minX = min(firstCorner.blockX.toDouble(), secondCorner.blockX.toDouble())
         val minZ = min(firstCorner.blockZ.toDouble(), secondCorner.blockZ.toDouble())
         val maxX = max(firstCorner.blockX.toDouble(), secondCorner.blockX.toDouble())
