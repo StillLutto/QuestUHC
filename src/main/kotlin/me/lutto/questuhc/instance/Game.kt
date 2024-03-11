@@ -1,8 +1,8 @@
 package me.lutto.questuhc.instance
 
 import me.lutto.questuhc.enums.GameState
+import me.lutto.questuhc.enums.quests.QuestList
 import org.bukkit.*
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import java.util.*
 import java.util.concurrent.ThreadLocalRandom
@@ -26,12 +26,12 @@ class Game(private val arena: Arena) {
             player.closeInventory()
             player.gameMode = GameMode.SURVIVAL
 
-            val quest: Pair<EntityType, Int> = arena.getQuests().getRandomQuest()
+            val quest: QuestList = arena.getQuests().getRandomQuest()
             arena.getQuests().setPlayerQuest(uuid, quest)
 
             player.sendRichMessage("""
                 <green>Game has started!
-                <gold>Your objective is to kill ${quest.second} ${quest.first.name.lowercase()} and you will get a secret weapon!
+                <gold>Your objective is to ${quest.type.questName} ${quest.amount} ${quest.questName} and you will get a secret weapon!
             """.trimIndent()
             )
         }
@@ -47,12 +47,12 @@ class Game(private val arena: Arena) {
 
     fun addPoint(player: Player) {
         val playerPoints = (points[player.uniqueId] ?: return) + 1
-        if (playerPoints == 4) {
+        if (playerPoints == (arena.getQuests().getPlayerQuest(player.uniqueId) ?: return).amount) {
             arena.win(player)
             return
         }
 
-        player.sendRichMessage("<green>+1 Point!")
+        player.sendRichMessage("<green>+1 ${(arena.getQuests().getPlayerQuest(player.uniqueId) ?: return).type.questName}!")
         points.replace(player.uniqueId, playerPoints)
     }
 

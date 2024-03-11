@@ -1,25 +1,19 @@
 package me.lutto.questuhc.instance
 
-import org.bukkit.entity.EntityType
+import me.lutto.questuhc.enums.quests.QuestList
 import java.util.*
-import kotlin.random.Random
 
 class Quests {
 
-    private val questsGiven: MutableSet<Pair<EntityType, Int>> = HashSet()
-    private val playerQuests: MutableMap<UUID, Pair<EntityType, Int>> = mutableMapOf()
+    private val questsGiven: MutableSet<QuestList> = HashSet()
+    private val playerQuests: MutableMap<UUID, QuestList> = mutableMapOf()
 
-    fun getRandomQuest(): Pair<EntityType, Int> {
+    fun getRandomQuest(): QuestList {
 
-        val killList: MutableList<Pair<EntityType, Int>> = mutableListOf()
-        killList.add(Pair(EntityType.SHEEP, 5))
-        killList.add(Pair(EntityType.COW, 3))
-
-        val totalList: List<Pair<EntityType, Int>> = killList
-        var randomQuest: Pair<EntityType, Int> = totalList[Random.nextInt(0, totalList.size)]
+        var randomQuest: QuestList = QuestList.entries.random()
 
         while (!questsGiven.contains(randomQuest)) {
-            randomQuest = totalList[Random.nextInt(0, totalList.size)]
+            randomQuest = QuestList.entries.random()
             questsGiven.add(randomQuest)
         }
 
@@ -27,10 +21,10 @@ class Quests {
 
     }
 
-    fun setPlayerQuest(uuid: UUID, quest: Pair<EntityType, Int>) {
+    fun setPlayerQuest(uuid: UUID, quest: QuestList) {
         playerQuests[uuid] = quest
     }
 
-    fun getPlayerQuests(): MutableMap<UUID, Pair<EntityType, Int>>  = playerQuests
+    fun getPlayerQuest(uuid: UUID): QuestList? = playerQuests[uuid]
 
 }
