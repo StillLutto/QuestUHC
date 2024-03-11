@@ -12,13 +12,14 @@ class QuestListener(private val questUHC: QuestUHC) : Listener {
     @EventHandler
     fun onEntityDeath(event: EntityDeathEvent) {
         if (event.entity.killer == null && event.entity.killer !is Player) return
-        val arena = questUHC.arenaManager.getArena(event.entity.killer!!) ?: return
-        if (arena.getState() != GameState.LIVE) return
 
         val player: Player = event.entity.killer!!
-
+        val arena = questUHC.arenaManager.getArena(event.entity.killer!!) ?: return
         val playerQuest = arena.getQuests().getPlayerQuests()[player.uniqueId] ?: return
+
+        if (arena.getState() != GameState.LIVE) return
         if (event.entity.type != playerQuest.first) return
+
         arena.getGame().addPoint(player)
     }
 

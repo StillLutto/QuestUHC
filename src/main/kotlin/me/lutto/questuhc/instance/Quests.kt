@@ -16,12 +16,10 @@ class Quests {
         killList.add(Pair(EntityType.COW, 3))
 
         val totalList: List<Pair<EntityType, Int>> = killList
-        val randomInt = Random.nextInt(0, totalList.size)
-        var randomQuest: Pair<EntityType, Int> = totalList[randomInt]
+        var randomQuest: Pair<EntityType, Int> = totalList[Random.nextInt(0, totalList.size)]
 
         while (!questsGiven.contains(randomQuest)) {
-            val randomInt = Random.nextInt(0, totalList.size)
-            randomQuest = totalList[randomInt]
+            randomQuest = totalList[Random.nextInt(0, totalList.size)]
             questsGiven.add(randomQuest)
         }
         playerQuests[uuid] = randomQuest
