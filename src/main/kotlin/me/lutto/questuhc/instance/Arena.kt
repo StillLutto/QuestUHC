@@ -24,6 +24,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     private var state: GameState
     private var players: MutableList<UUID>
+    private var deadPlayers: MutableList<UUID>
     private var kits: MutableMap<UUID, Kit>
     private var countdown: Countdown
     private var game: Game
@@ -32,6 +33,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     init {
         state = GameState.RECRUITING
         players = mutableListOf()
+        deadPlayers = mutableListOf()
         kits = mutableMapOf()
         countdown = Countdown(questUHC, this)
         game = Game(this)
@@ -49,6 +51,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
                 Bukkit.getPlayer(uuid)?.teleport(lobbySpawn)
                 removeKit(uuid)
             }
+            for (uuid in deadPlayers) { Bukkit.getPlayer(uuid)?.teleport(lobbySpawn) }
             players.clear()
         }
 
@@ -86,6 +89,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     }
 
     fun removePlayer(player: Player) {
+        deadPlayers.add(player.uniqueId)
         players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobbySpawn())
         player.clearTitle()
