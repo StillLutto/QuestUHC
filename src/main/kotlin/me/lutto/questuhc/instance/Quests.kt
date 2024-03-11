@@ -9,7 +9,7 @@ class Quests {
     private val questsGiven: MutableSet<Pair<EntityType, Int>> = HashSet()
     private val playerQuests: MutableMap<UUID, Pair<EntityType, Int>> = mutableMapOf()
 
-    fun getRandomQuest(uuid: UUID): Pair<EntityType, Int> {
+    fun getRandomQuest(): Pair<EntityType, Int> {
 
         val killList: MutableList<Pair<EntityType, Int>> = mutableListOf()
         killList.add(Pair(EntityType.SHEEP, 5))

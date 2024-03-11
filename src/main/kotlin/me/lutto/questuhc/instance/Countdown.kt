@@ -3,7 +3,6 @@ package me.lutto.questuhc.instance
 import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.manager.ConfigManager.getCountdownSeconds
-import org.bukkit.ChatColor
 import org.bukkit.scheduler.BukkitRunnable
 
 class Countdown(private val questUHC: QuestUHC, private val arena: Arena) : BukkitRunnable() {

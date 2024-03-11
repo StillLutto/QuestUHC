@@ -42,7 +42,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         game.start()
     }
 
-    fun reset(kickPlayers: Boolean) {
+    private fun reset(kickPlayers: Boolean) {
         if (kickPlayers) {
             val lobbySpawn = ConfigManager.getLobbySpawn()
             for (uuid in players) {
@@ -73,7 +73,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     }
 
     fun addPlayer(player: Player) {
-        players.add(player.getUniqueId())
+        players.add(player.uniqueId)
         player.teleport(spawn)
         KitUI(player)
 
@@ -132,7 +132,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
     fun setState(state: GameState) { this.state = state; }
 
-    fun removeKit(uuid: UUID) {
+    private fun removeKit(uuid: UUID) {
         if (kits.contains(uuid)) {
             kits[uuid]?.remove()
             kits.remove(uuid)
