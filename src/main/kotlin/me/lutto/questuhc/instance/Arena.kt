@@ -27,13 +27,15 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     private var kits: MutableMap<UUID, Kit>
     private var countdown: Countdown
     private var game: Game
+    private var quests: Quests
 
     init {
         state = GameState.RECRUITING
         players = mutableListOf()
         kits = mutableMapOf()
         countdown = Countdown(questUHC, this)
-        game = Game(questUHC, this)
+        game = Game(this)
+        quests = Quests()
     }
 
     fun start() {
@@ -55,7 +57,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         state = GameState.RECRUITING
         countdown.cancel()
         countdown = Countdown(questUHC, this)
-        game = Game(questUHC, this)
+        game = Game(this)
     }
 
     fun sendMessage(message: String) {
@@ -123,6 +125,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
     fun getKits(): MutableMap<UUID, Kit> = kits
 
     fun getGame(): Game = game
+    fun getQuests(): Quests = quests
 
     fun getFirstCorner(): Location = firstCorner
     fun getSecondCorner(): Location = secondCorner

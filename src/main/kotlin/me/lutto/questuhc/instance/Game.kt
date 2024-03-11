@@ -1,6 +1,5 @@
 package me.lutto.questuhc.instance
 
-import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
 import org.bukkit.*
 import org.bukkit.entity.EntityType
@@ -11,7 +10,7 @@ import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 
-class Game(private val questUHC: QuestUHC, private val arena: Arena) {
+class Game(private val arena: Arena) {
 
     private val points = HashMap<UUID, Int>()
 
@@ -27,7 +26,7 @@ class Game(private val questUHC: QuestUHC, private val arena: Arena) {
             player.closeInventory()
             player.gameMode = GameMode.SURVIVAL
 
-            val quest: Pair<EntityType, Int> = questUHC.questManager.getRandomQuest(uuid)
+            val quest: Pair<EntityType, Int> = arena.getQuests().getRandomQuest(uuid)
 
             player.sendRichMessage("""
                 <green>Game has started!

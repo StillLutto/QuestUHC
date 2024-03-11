@@ -1,10 +1,10 @@
-package me.lutto.questuhc.manager
+package me.lutto.questuhc.instance
 
 import org.bukkit.entity.EntityType
 import java.util.*
 import kotlin.random.Random
 
-class QuestManager {
+class Quests {
 
     private val questsGiven: MutableSet<Pair<EntityType, Int>> = HashSet()
     private val playerQuests: MutableMap<UUID, Pair<EntityType, Int>> = mutableMapOf()

@@ -17,7 +17,7 @@ class QuestListener(private val questUHC: QuestUHC) : Listener {
 
         val player: Player = event.entity.killer!!
 
-        val playerQuest = questUHC.questManager.getPlayerQuests()[player.uniqueId] ?: return
+        val playerQuest = arena.getQuests().getPlayerQuests()[player.uniqueId] ?: return
         if (event.entity.type != playerQuest.first) return
         arena.getGame().addPoint(player)
     }
