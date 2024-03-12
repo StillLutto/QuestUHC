@@ -16,7 +16,9 @@ import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 
 import java.util.UUID
 
@@ -81,6 +83,12 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         players.add(player.uniqueId)
         player.teleport(spawn)
         KitUI(player)
+        val kitCompass = ItemStack(Material.COMPASS)
+        val kitCompassMeta = kitCompass.itemMeta
+        kitCompassMeta.displayName(Component.text("Kits", NamedTextColor.GOLD))
+        kitCompassMeta.setLocalizedName("KitsItem")
+        kitCompass.setItemMeta(kitCompassMeta)
+        player.inventory.addItem(kitCompass)
 
         if (state != GameState.RECRUITING) return
         if (players.size >= ConfigManager.getMinRequiredPlayers()) {
@@ -93,6 +101,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         players.remove(player.uniqueId)
         player.teleport(ConfigManager.getLobbySpawn())
         player.clearTitle()
+        player.inventory.clear()
 
         removeKit(player.uniqueId)
 

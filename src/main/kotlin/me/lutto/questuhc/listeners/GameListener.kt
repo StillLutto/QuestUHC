@@ -4,6 +4,9 @@ import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.instance.Arena
 import me.lutto.questuhc.kit.KitType
+import me.lutto.questuhc.kit.KitUI
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.GameMode
 import org.bukkit.Location
@@ -12,8 +15,17 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerInteractEvent
 
 class GameListener(private val questUHC: QuestUHC) : Listener {
+
+    @EventHandler
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+
+        if ((event.item?.itemMeta?.localizedName ?: return) != "KitsItem") return
+        KitUI(event.player)
+
+    }
 
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
@@ -21,10 +33,15 @@ class GameListener(private val questUHC: QuestUHC) : Listener {
         val player: Player = event.whoClicked as Player
 
         if (event.view.title() == MiniMessage.miniMessage()
-            .deserialize("<gradient:#1f9fb5:#1b8b9e>Kit Pi</gradient><gradient:#1b8b9e:#1f9fb5>cker</gradient>")
+            .deserialize("<white>月月月月月月月月日")
             && event.currentItem != null
             ) {
             event.isCancelled = true
+
+            if (event.currentItem!!.itemMeta.localizedName == "EXIT") {
+                player.closeInventory()
+                return
+            }
 
             val type: KitType = KitType.valueOf(event.currentItem!!.itemMeta.localizedName)
 
