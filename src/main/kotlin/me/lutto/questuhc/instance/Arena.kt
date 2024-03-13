@@ -19,6 +19,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffect
 
 import java.util.UUID
 
@@ -127,6 +128,10 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         player.gameMode = GameMode.ADVENTURE
         player.isInvulnerable = true
         Bukkit.getScheduler().runTaskLater(questUHC, Runnable {
+            for (potionEffect: PotionEffect in player.activePotionEffects) {
+                player.removePotionEffect(potionEffect.type)
+            }
+            player.inventory.clear()
             player.teleport(ConfigManager.getLobbySpawn())
             reset(true)
         }, 100)

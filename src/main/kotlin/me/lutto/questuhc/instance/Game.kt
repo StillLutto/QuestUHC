@@ -25,6 +25,7 @@ class Game(private val arena: Arena) {
             val player: Player = Bukkit.getPlayer(uuid) ?: return
             player.closeInventory()
             player.gameMode = GameMode.SURVIVAL
+            player.inventory.clear()
 
             val quest: QuestList = arena.getQuests().getRandomQuest()
             arena.getQuests().setPlayerQuest(uuid, quest)

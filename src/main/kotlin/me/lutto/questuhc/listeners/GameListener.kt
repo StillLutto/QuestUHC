@@ -21,10 +21,8 @@ class GameListener(private val questUHC: QuestUHC) : Listener {
 
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
-
         if ((event.item?.itemMeta?.localizedName ?: return) != "KitsItem") return
         KitUI(event.player)
-
     }
 
     @EventHandler
