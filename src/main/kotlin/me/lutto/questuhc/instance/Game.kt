@@ -24,8 +24,8 @@ class Game(private val arena: Arena) {
             points[uuid] = 0
             val player: Player = Bukkit.getPlayer(uuid) ?: return
             player.closeInventory()
-            player.gameMode = GameMode.SURVIVAL
             player.inventory.clear()
+            player.gameMode = GameMode.SURVIVAL
 
             val quest: QuestList = arena.getQuests().getRandomQuest()
             arena.getQuests().setPlayerQuest(uuid, quest)

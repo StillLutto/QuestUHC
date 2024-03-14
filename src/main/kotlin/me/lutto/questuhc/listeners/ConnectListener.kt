@@ -2,6 +2,7 @@ package me.lutto.questuhc.listeners
 
 import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.manager.ConfigManager
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
@@ -13,6 +14,7 @@ class ConnectListener(private val questUHC: QuestUHC) : Listener {
     fun onPlayerJoin(event: PlayerJoinEvent) {
         event.player.teleport(ConfigManager.getLobbySpawn())
         event.player.isInvulnerable = true
+        event.player.gameMode = GameMode.ADVENTURE
     }
 
     @EventHandler

@@ -83,6 +83,8 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
 
         players.add(player.uniqueId)
         player.teleport(spawn)
+        player.gameMode = GameMode.ADVENTURE
+
         KitUI(player)
         val kitCompass = ItemStack(Material.COMPASS)
         val kitCompassMeta = kitCompass.itemMeta
@@ -103,6 +105,7 @@ class Arena(private val questUHC: QuestUHC, private val id: Int, private val spa
         player.teleport(ConfigManager.getLobbySpawn())
         player.clearTitle()
         player.inventory.clear()
+        player.gameMode = GameMode.ADVENTURE
 
         removeKit(player.uniqueId)
 
