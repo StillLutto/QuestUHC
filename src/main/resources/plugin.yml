@@ -4,3 +4,6 @@ main: me.lutto.questuhc.QuestUHC
 api-version: '1.20'
 commands:
   arena:
+    description: List, Join, Leave Arena's with this command!
+    aliases:
+      - a
