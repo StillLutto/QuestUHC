@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
     implementation(kotlin("stdlib-jdk8"))
 }
 

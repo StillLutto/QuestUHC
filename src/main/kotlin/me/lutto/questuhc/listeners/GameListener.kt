@@ -8,6 +8,7 @@ import me.lutto.questuhc.kit.KitUI
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
+import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
 import org.bukkit.entity.Player
@@ -16,11 +17,16 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class GameListener(private val questUHC: QuestUHC) : Listener {
 
+    val logger: Logger = Bukkit.getLogger()
+
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
+        logger.log(Level.CONFIG ,"hello world!")
         if ((event.item?.itemMeta?.localizedName ?: return) != "KitsItem") return
         KitUI(event.player)
     }
