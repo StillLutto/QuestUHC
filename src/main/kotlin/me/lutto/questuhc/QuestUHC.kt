@@ -34,7 +34,7 @@ class QuestUHC : JavaPlugin() {
 
     private fun setupLogger() {
         if (Level.parse(env["LOG_LEVEL"]) != null) {
-            logger.level = Level.FINE
+            logger.level = Level.parse(env["LOG_LEVEL"])
         } else {
             logger.level = Level.INFO
         }
