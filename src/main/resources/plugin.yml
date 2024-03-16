@@ -7,3 +7,7 @@ commands:
     description: List, Join, Leave Arena's with this command!
     aliases:
       - a
+  giveitem:
+    description: Get all custom items/blocks using this command!
+    aliases:
+      - gi
