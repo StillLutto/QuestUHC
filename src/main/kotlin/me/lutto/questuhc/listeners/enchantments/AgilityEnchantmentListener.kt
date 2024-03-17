@@ -18,7 +18,8 @@ class AgilityEnchantmentListener(private val questUHC: QuestUHC) : Listener {
             event.player.removePotionEffect(PotionEffectType.SPEED)
             return
         }
-        if (event.newItem.itemMeta != null && !event.newItem.itemMeta.persistentDataContainer.has(key)) return
+        if (event.newItem.itemMeta == null) return
+        if (!event.newItem.itemMeta.persistentDataContainer.has(key)) return
         if (event.newItem.itemMeta.persistentDataContainer[key, PersistentDataType.STRING] != "Agility") return
 
         event.player.addPotionEffect(PotionEffect(PotionEffectType.SPEED, Int.MAX_VALUE, 1))
