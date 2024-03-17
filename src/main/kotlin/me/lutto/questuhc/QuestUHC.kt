@@ -9,6 +9,7 @@ import me.lutto.questuhc.listeners.ConnectListener
 import me.lutto.questuhc.listeners.GameListener
 import me.lutto.questuhc.listeners.QuestListener
 import me.lutto.questuhc.listeners.enchantments.AgilityEnchantmentListener
+import me.lutto.questuhc.listeners.enchantments.EvaderEnchantmentListener
 import me.lutto.questuhc.listeners.enchantments.VitalityEnchantmentListener
 import me.lutto.questuhc.listeners.items.InstaFurnaceListener
 import me.lutto.questuhc.manager.ArenaManager
@@ -40,6 +41,7 @@ class QuestUHC : JavaPlugin() {
 
         Bukkit.getPluginManager().registerEvents(AgilityEnchantmentListener(this), this)
         Bukkit.getPluginManager().registerEvents(VitalityEnchantmentListener(this), this)
+        Bukkit.getPluginManager().registerEvents(EvaderEnchantmentListener(this), this)
 
         getCommand("arena")?.setExecutor(ArenaCommand(this))
         getCommand("arena")?.tabCompleter = ArenaTabCompleter()

@@ -21,6 +21,7 @@ class ItemManager(private val questUHC: QuestUHC) {
         createInstaFurnace()
         createAgilityBoots()
         createVilalityChestplate()
+        createEvaderHelmet()
     }
 
     private fun createInstaFurnace() {
@@ -75,6 +76,22 @@ class ItemManager(private val questUHC: QuestUHC) {
         item.setItemMeta(meta)
 
         val customItem = CustomItem("vitality_chestplate", item)
+        itemList.add(customItem)
+    }
+
+    private fun createEvaderHelmet() {
+        val item = ItemStack(Material.DIAMOND_HELMET, 1)
+        val meta = item.itemMeta
+
+        val key = NamespacedKey(questUHC, "custom_enchantment")
+        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Evader"
+
+        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Evader Helmet").decoration(TextDecoration.ITALIC, false))
+        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
+        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
+        item.setItemMeta(meta)
+
+        val customItem = CustomItem("evader_helmet", item)
         itemList.add(customItem)
     }
 
