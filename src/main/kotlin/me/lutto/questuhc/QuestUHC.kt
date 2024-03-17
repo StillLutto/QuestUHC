@@ -14,6 +14,7 @@ import me.lutto.questuhc.manager.ConfigManager
 import me.lutto.questuhc.manager.ItemManager
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
+import java.rmi.registry.Registry
 import java.util.logging.Level
 
 class QuestUHC : JavaPlugin() {
@@ -28,7 +29,7 @@ class QuestUHC : JavaPlugin() {
 
         ConfigManager.setupConfig(this)
         arenaManager = ArenaManager(this)
-        itemManager = ItemManager()
+        itemManager = ItemManager(this)
 
         Bukkit.getPluginManager().registerEvents(ConnectListener(this), this)
         Bukkit.getPluginManager().registerEvents(GameListener(this), this)
