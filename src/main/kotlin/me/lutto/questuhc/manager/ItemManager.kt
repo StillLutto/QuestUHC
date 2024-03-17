@@ -5,7 +5,6 @@ import me.lutto.questuhc.instance.CustomItem
 import net.kyori.adventure.text.format.TextDecoration
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
-import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
@@ -51,10 +50,10 @@ class ItemManager(private val questUHC: QuestUHC) {
         val meta = item.itemMeta
 
         val key = NamespacedKey(questUHC, "custom_enchantment")
-        meta.persistentDataContainer.set(key, PersistentDataType.STRING, "Agility")
+        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Agility"
 
         meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Agility Boots").decoration(TextDecoration.ITALIC, false))
-        meta.lore(Arrays.asList(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer.get(key, PersistentDataType.STRING) ?: return}").decoration(TextDecoration.ITALIC, false)))
+        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
         item.setItemMeta(meta)
 
