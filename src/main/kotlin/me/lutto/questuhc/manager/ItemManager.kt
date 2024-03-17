@@ -20,6 +20,7 @@ class ItemManager(private val questUHC: QuestUHC) {
     init {
         createInstaFurnace()
         createAgilityBoots()
+        createVilalityChestplate()
     }
 
     private fun createInstaFurnace() {
@@ -58,6 +59,22 @@ class ItemManager(private val questUHC: QuestUHC) {
         item.setItemMeta(meta)
 
         val customItem = CustomItem("agility_boots", item)
+        itemList.add(customItem)
+    }
+
+    private fun createVilalityChestplate() {
+        val item = ItemStack(Material.DIAMOND_CHESTPLATE, 1)
+        val meta = item.itemMeta
+
+        val key = NamespacedKey(questUHC, "custom_enchantment")
+        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Vitality"
+
+        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Vitality Chestplate").decoration(TextDecoration.ITALIC, false))
+        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
+        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
+        item.setItemMeta(meta)
+
+        val customItem = CustomItem("vitality_chestplate", item)
         itemList.add(customItem)
     }
 
