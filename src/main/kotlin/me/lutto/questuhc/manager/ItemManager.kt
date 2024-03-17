@@ -11,7 +11,7 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
+import java.util.UUID
 
 class ItemManager(private val questUHC: QuestUHC) {
 
@@ -83,11 +83,14 @@ class ItemManager(private val questUHC: QuestUHC) {
         val item = ItemStack(Material.DIAMOND_HELMET, 1)
         val meta = item.itemMeta
 
-        val key = NamespacedKey(questUHC, "custom_enchantment")
-        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Evader"
+        val enchantmentKey = NamespacedKey(questUHC, "custom_enchantment")
+        meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] = "Evader"
+
+        val uuidKey = NamespacedKey(questUHC, "uuid")
+        meta.persistentDataContainer[uuidKey, PersistentDataType.STRING] = UUID.randomUUID().toString()
 
         meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Evader Helmet").decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
+        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
         meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
         item.setItemMeta(meta)
 

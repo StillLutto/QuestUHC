@@ -13,20 +13,22 @@ import kotlin.random.Random
 
 class EvaderEnchantmentListener(private val questUHC: QuestUHC): Listener {
 
-    private var abilityUsed: Boolean = false
+    private var abilityUsed: MutableSet<String> = mutableSetOf()
 
     @EventHandler
     fun onDamage(event: EntityDamageByEntityEvent) {
-        if (abilityUsed) return
         if (event.entity !is Player) return
         val player: Player = event.entity as Player
         if (player.health > 4.0) return
         if (player.inventory.helmet == null) return
         val helmet: ItemStack = player.inventory.helmet!!
 
-        val key = NamespacedKey(questUHC, "custom_enchantment")
-        if (helmet.itemMeta != null && !helmet.itemMeta.persistentDataContainer.has(key)) return
-        if (helmet.itemMeta.persistentDataContainer[key, PersistentDataType.STRING] != "Evader") return
+        val enchantmentKey = NamespacedKey(questUHC, "custom_enchantment")
+        if (helmet.itemMeta != null && !helmet.itemMeta.persistentDataContainer.has(enchantmentKey)) return
+        if (helmet.itemMeta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] != "Evader") return
+
+        val uuidKey = NamespacedKey(questUHC, "uuid")
+        if (abilityUsed.contains(helmet.itemMeta.persistentDataContainer[uuidKey, PersistentDataType.STRING])) return
 
         val radius = 10
         val randomX: Double = Random.nextInt(1, radius).toDouble() + player.x
@@ -35,7 +37,7 @@ class EvaderEnchantmentListener(private val questUHC: QuestUHC): Listener {
         val randomLocation = Location(player.world, randomX, y.toDouble() + 1, randomZ)
         player.teleportAsync(randomLocation)
 
-        abilityUsed = true
+        abilityUsed.add(helmet.itemMeta.persistentDataContainer[uuidKey, PersistentDataType.STRING] ?: return)
     }
 
 }
