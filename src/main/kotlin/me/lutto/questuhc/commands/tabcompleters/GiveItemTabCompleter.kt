@@ -2,7 +2,6 @@ package me.lutto.questuhc.commands.tabcompleters
 
 import me.lutto.questuhc.QuestUHC
 import me.lutto.questuhc.instance.CustomItem
-import net.kyori.adventure.text.Component
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter

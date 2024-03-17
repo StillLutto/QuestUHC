@@ -5,8 +5,6 @@ import me.lutto.questuhc.enums.GameState
 import me.lutto.questuhc.instance.Arena
 import me.lutto.questuhc.kit.KitType
 import me.lutto.questuhc.kit.KitUI
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
