@@ -1,6 +1,6 @@
-name: QuestUHC
+name: TreasureBattle
 version: '${project.version}'
-main: me.lutto.questuhc.QuestUHC
+main: me.lutto.treasurebattle.TreasureBattle
 api-version: '1.20'
 commands:
   arena:

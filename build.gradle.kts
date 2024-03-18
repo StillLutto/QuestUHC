@@ -30,7 +30,7 @@ dependencies {
 
 group = "me.lutto"
 version = "1.0-SNAPSHOT"
-description = "QuestUHC"
+description = "TreasureBattle"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 publishing {
@@ -49,7 +49,7 @@ tasks.withType<Javadoc>() {
 
 tasks.withType<Jar> {
     // customize this to your needs
-    destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\QuestUHC Server\\plugins")
+    destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\TreasureBattle Server\\plugins")
 }
 
 kotlin {
