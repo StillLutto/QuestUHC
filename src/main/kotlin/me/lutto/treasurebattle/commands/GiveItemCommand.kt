@@ -31,7 +31,7 @@ class GiveItemCommand(val treasureBattle: TreasureBattle) : CommandExecutor {
                     return false
                 }
 
-                sender.sendMessage("<gold>You have been given ${args[0]}")
+                sender.sendRichMessage("<gold>You have been given ${args[0]}!")
                 return true
             }
         } else {
