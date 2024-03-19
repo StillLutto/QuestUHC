@@ -11,7 +11,6 @@ import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.persistence.PersistentDataType
-import java.util.UUID
 
 class ItemManager(private val treasureBattle: TreasureBattle) {
 
@@ -19,10 +18,62 @@ class ItemManager(private val treasureBattle: TreasureBattle) {
 
     init {
         createInstaFurnace()
-        createAgilityBoots()
-        createVilalityChestplate()
-        createEvaderShield()
-        createBoomstrikeShield()
+
+        createEnchantmentItem(
+            "agility_boots",
+            Material.DIAMOND_BOOTS,
+            Enchantment.PROTECTION_ENVIRONMENTAL,
+            1,
+            "Agility",
+            "Agility Boots"
+        )
+        createEnchantmentItem(
+            "vitality_chestplate",
+            Material.DIAMOND_CHESTPLATE,
+            Enchantment.PROTECTION_ENVIRONMENTAL,
+            1,
+            "Vitality",
+            "Vitality Chestplate"
+        )
+        createEnchantmentItem(
+            "evader_helmet",
+            Material.DIAMOND_HELMET,
+            Enchantment.PROTECTION_ENVIRONMENTAL,
+            1,
+            "Evader",
+            "Evader Helmet"
+        )
+        createEnchantmentItem(
+            "boomstrike_shield",
+            Material.SHIELD,
+            Enchantment.DURABILITY,
+            3,
+            "Boomstrike",
+            "Boomstrike Shield"
+        )
+    }
+
+    private fun createEnchantmentItem(
+        itemId: String,
+        material: Material,
+        otherEnchantment: Enchantment,
+        enchantmentAmount: Int,
+        enchantmentName: String,
+        itemDisplayName: String
+    ) {
+        val item = ItemStack(material, 1)
+        val itemMeta = item.itemMeta
+
+        val key = NamespacedKey(treasureBattle, "custom_enchantment")
+        itemMeta.persistentDataContainer[key, PersistentDataType.STRING] = enchantmentName
+
+        itemMeta.displayName(MiniMessage.miniMessage().deserialize("<aqua>$itemDisplayName").decoration(TextDecoration.ITALIC, false))
+        itemMeta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${itemMeta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
+        itemMeta.addEnchant(otherEnchantment, enchantmentAmount, false)
+        item.setItemMeta(itemMeta)
+
+        val customItem = CustomItem(itemId, item)
+        itemList.add(customItem)
     }
 
     private fun createInstaFurnace() {
@@ -46,76 +97,6 @@ class ItemManager(private val treasureBattle: TreasureBattle) {
         shapedRecipe.setIngredient('S', Material.COBBLESTONE)
         shapedRecipe.setIngredient('C', Material.COAL)
         Bukkit.getServer().addRecipe(shapedRecipe)
-    }
-
-    private fun createAgilityBoots() {
-        val item = ItemStack(Material.DIAMOND_BOOTS, 1)
-        val meta = item.itemMeta
-
-        val key = NamespacedKey(treasureBattle, "custom_enchantment")
-        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Agility"
-
-        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Agility Boots").decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
-        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
-        item.setItemMeta(meta)
-
-        val customItem = CustomItem("agility_boots", item)
-        itemList.add(customItem)
-    }
-
-    private fun createVilalityChestplate() {
-        val item = ItemStack(Material.DIAMOND_CHESTPLATE, 1)
-        val meta = item.itemMeta
-
-        val key = NamespacedKey(treasureBattle, "custom_enchantment")
-        meta.persistentDataContainer[key, PersistentDataType.STRING] = "Vitality"
-
-        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Vitality Chestplate").decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[key, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
-        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
-        item.setItemMeta(meta)
-
-        val customItem = CustomItem("vitality_chestplate", item)
-        itemList.add(customItem)
-    }
-
-    private fun createEvaderShield() {
-        val item = ItemStack(Material.SHIELD, 1)
-        val meta = item.itemMeta
-
-        val enchantmentKey = NamespacedKey(treasureBattle, "custom_enchantment")
-        meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] = "Boomstrike"
-
-        val uuidKey = NamespacedKey(treasureBattle, "uuid")
-        meta.persistentDataContainer[uuidKey, PersistentDataType.STRING] = UUID.randomUUID().toString()
-
-        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Boomstrike Shield").decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
-        meta.addEnchant(Enchantment.DURABILITY, 3, false)
-        item.setItemMeta(meta)
-
-        val customItem = CustomItem("boomstrike_shield", item)
-        itemList.add(customItem)
-    }
-
-    private fun createBoomstrikeShield() {
-        val item = ItemStack(Material.DIAMOND_HELMET, 1)
-        val meta = item.itemMeta
-
-        val enchantmentKey = NamespacedKey(treasureBattle, "custom_enchantment")
-        meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] = "Evader"
-
-        val uuidKey = NamespacedKey(treasureBattle, "uuid")
-        meta.persistentDataContainer[uuidKey, PersistentDataType.STRING] = UUID.randomUUID().toString()
-
-        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Evader Helmet").decoration(TextDecoration.ITALIC, false))
-        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
-        meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, false)
-        item.setItemMeta(meta)
-
-        val customItem = CustomItem("evader_helmet", item)
-        itemList.add(customItem)
     }
 
     fun getItem(id: String): CustomItem? {
