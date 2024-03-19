@@ -21,7 +21,8 @@ class ItemManager(private val treasureBattle: TreasureBattle) {
         createInstaFurnace()
         createAgilityBoots()
         createVilalityChestplate()
-        createEvaderHelmet()
+        createEvaderShield()
+        createBoomstrikeShield()
     }
 
     private fun createInstaFurnace() {
@@ -79,7 +80,26 @@ class ItemManager(private val treasureBattle: TreasureBattle) {
         itemList.add(customItem)
     }
 
-    private fun createEvaderHelmet() {
+    private fun createEvaderShield() {
+        val item = ItemStack(Material.SHIELD, 1)
+        val meta = item.itemMeta
+
+        val enchantmentKey = NamespacedKey(treasureBattle, "custom_enchantment")
+        meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] = "Boomstrike"
+
+        val uuidKey = NamespacedKey(treasureBattle, "uuid")
+        meta.persistentDataContainer[uuidKey, PersistentDataType.STRING] = UUID.randomUUID().toString()
+
+        meta.displayName(MiniMessage.miniMessage().deserialize("<aqua>Boomstrike Shield").decoration(TextDecoration.ITALIC, false))
+        meta.lore(listOf(MiniMessage.miniMessage().deserialize("<gray>${meta.persistentDataContainer[enchantmentKey, PersistentDataType.STRING] ?: return}").decoration(TextDecoration.ITALIC, false)))
+        meta.addEnchant(Enchantment.DURABILITY, 3, false)
+        item.setItemMeta(meta)
+
+        val customItem = CustomItem("boomstrike_shield", item)
+        itemList.add(customItem)
+    }
+
+    private fun createBoomstrikeShield() {
         val item = ItemStack(Material.DIAMOND_HELMET, 1)
         val meta = item.itemMeta
 

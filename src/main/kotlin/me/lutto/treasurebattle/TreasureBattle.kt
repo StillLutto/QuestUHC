@@ -8,6 +8,7 @@ import me.lutto.treasurebattle.commands.tabcompleters.GiveItemTabCompleter
 import me.lutto.treasurebattle.listeners.ConnectListener
 import me.lutto.treasurebattle.listeners.GameListener
 import me.lutto.treasurebattle.listeners.QuestListener
+import me.lutto.treasurebattle.listeners.enchantments.BoomstrikeEnchantmentListener
 import me.lutto.treasurebattle.listeners.enchantments.AgilityEnchantmentListener
 import me.lutto.treasurebattle.listeners.enchantments.EvaderEnchantmentListener
 import me.lutto.treasurebattle.listeners.enchantments.VitalityEnchantmentListener
@@ -42,6 +43,7 @@ class TreasureBattle : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(AgilityEnchantmentListener(this), this)
         Bukkit.getPluginManager().registerEvents(VitalityEnchantmentListener(this), this)
         Bukkit.getPluginManager().registerEvents(EvaderEnchantmentListener(this), this)
+        Bukkit.getPluginManager().registerEvents(BoomstrikeEnchantmentListener(this), this)
 
         getCommand("arena")?.setExecutor(ArenaCommand(this))
         getCommand("arena")?.tabCompleter = ArenaTabCompleter()
