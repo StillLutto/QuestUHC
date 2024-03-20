@@ -20,7 +20,6 @@ class EvaderEnchantmentListener(private val treasureBattle: TreasureBattle): Lis
         if (event.entity !is Player) return
         val player: Player = event.entity as Player
         if (player.health > 4.0) return
-        if (player.inventory.helmet == null) return
         val helmet: ItemStack = player.inventory.helmet ?: return
 
         val enchantmentKey = NamespacedKey(treasureBattle, "custom_enchantment")
