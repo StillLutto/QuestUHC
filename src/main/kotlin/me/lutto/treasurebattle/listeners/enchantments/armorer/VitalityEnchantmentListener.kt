@@ -1,4 +1,4 @@
-package me.lutto.treasurebattle.listeners.enchantments
+package me.lutto.treasurebattle.listeners.enchantments.armorer
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import me.lutto.treasurebattle.TreasureBattle

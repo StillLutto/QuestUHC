@@ -19,6 +19,17 @@ class ItemManager(private val treasureBattle: TreasureBattle) {
     init {
         createInstaFurnace()
 
+        // warrior enchantment items
+        createEnchantmentItem(
+            "vampiric_sword",
+            Material.DIAMOND_SWORD,
+            Enchantment.DAMAGE_ALL,
+            1,
+            "Vampiric",
+            "Vampiric Sword"
+        )
+
+        // armorer enchantment items
         createEnchantmentItem(
             "agility_boots",
             Material.DIAMOND_BOOTS,

@@ -1,4 +1,4 @@
-package me.lutto.treasurebattle.listeners.enchantments
+package me.lutto.treasurebattle.listeners.enchantments.armorer
 
 import me.lutto.treasurebattle.TreasureBattle
 import org.bukkit.Location

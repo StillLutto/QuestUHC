@@ -8,10 +8,11 @@ import me.lutto.treasurebattle.commands.tabcompleters.GiveItemTabCompleter
 import me.lutto.treasurebattle.listeners.ConnectListener
 import me.lutto.treasurebattle.listeners.GameListener
 import me.lutto.treasurebattle.listeners.QuestListener
-import me.lutto.treasurebattle.listeners.enchantments.BoomstrikeEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.AgilityEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.EvaderEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.VitalityEnchantmentListener
+import me.lutto.treasurebattle.listeners.enchantments.armorer.BoomstrikeEnchantmentListener
+import me.lutto.treasurebattle.listeners.enchantments.armorer.AgilityEnchantmentListener
+import me.lutto.treasurebattle.listeners.enchantments.armorer.EvaderEnchantmentListener
+import me.lutto.treasurebattle.listeners.enchantments.armorer.VitalityEnchantmentListener
+import me.lutto.treasurebattle.listeners.enchantments.warrior.VampiricEnchantmentListener
 import me.lutto.treasurebattle.listeners.items.InstaFurnaceListener
 import me.lutto.treasurebattle.manager.ArenaManager
 import me.lutto.treasurebattle.manager.ConfigManager
@@ -40,6 +41,10 @@ class TreasureBattle : JavaPlugin() {
 
         Bukkit.getPluginManager().registerEvents(InstaFurnaceListener(this), this)
 
+        // armorer enchantment listeners
+        Bukkit.getPluginManager().registerEvents(VampiricEnchantmentListener(this), this)
+
+        // armorer enchantment listeners
         Bukkit.getPluginManager().registerEvents(AgilityEnchantmentListener(this), this)
         Bukkit.getPluginManager().registerEvents(VitalityEnchantmentListener(this), this)
         Bukkit.getPluginManager().registerEvents(EvaderEnchantmentListener(this), this)
