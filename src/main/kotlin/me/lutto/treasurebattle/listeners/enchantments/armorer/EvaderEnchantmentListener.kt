@@ -1,4 +1,4 @@
-package me.lutto.treasurebattle.listeners.enchantments
+package me.lutto.treasurebattle.listeners.enchantments.armorer
 
 import me.lutto.treasurebattle.TreasureBattle
 import org.bukkit.Location
@@ -21,7 +21,7 @@ class EvaderEnchantmentListener(private val treasureBattle: TreasureBattle): Lis
         val player: Player = event.entity as Player
         if (player.health > 4.0) return
         if (player.inventory.helmet == null) return
-        val helmet: ItemStack = player.inventory.helmet!!
+        val helmet: ItemStack = player.inventory.helmet ?: return
 
         val enchantmentKey = NamespacedKey(treasureBattle, "custom_enchantment")
         if (helmet.itemMeta != null && !helmet.itemMeta.persistentDataContainer.has(enchantmentKey)) return
