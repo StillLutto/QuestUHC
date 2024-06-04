@@ -49,7 +49,7 @@ tasks.withType<Javadoc>() {
 
 tasks.withType<Jar> {
     // customize this to your needs
-    destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\TreasureBattle Server\\plugins")
+    destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\treasure-battle\\plugins")
 }
 
 kotlin {

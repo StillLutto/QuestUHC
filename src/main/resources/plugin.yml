@@ -1,4 +1,4 @@
-name: TreasureBattle
+name: treasure-battle
 version: '${project.version}'
 main: me.lutto.treasurebattle.TreasureBattle
 api-version: '1.20'
