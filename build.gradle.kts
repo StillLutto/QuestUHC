@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.20.4-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 }
