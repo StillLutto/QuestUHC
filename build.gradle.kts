@@ -1,8 +1,10 @@
 plugins {
-    `java-library`
+    java
     `maven-publish`
     kotlin("jvm")
     id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("io.papermc.paperweight.userdev") version "1.5.15"
+    id("xyz.jpenilla.run-paper") version "2.2.3" // Adds runServer and runMojangMappedServer tasks for testing
 }
 
 repositories {
@@ -19,13 +21,12 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
-    mavenCentral()
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
+    paperweight.paperDevBundle("1.20.1-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib-jdk8"))
+    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 }
 
 group = "me.lutto"
@@ -45,11 +46,6 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
-}
-
-tasks.withType<Jar> {
-    // customize this to your needs
-    destinationDirectory = File("C:\\Users\\iAmEi\\Desktop\\Files\\Programming\\Minecraft\\Plugins\\Servers\\treasure-battle\\plugins")
 }
 
 kotlin {
