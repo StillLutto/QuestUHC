@@ -5,14 +5,11 @@ import me.lutto.treasurebattle.commands.ArenaCommand
 import me.lutto.treasurebattle.commands.GiveItemCommand
 import me.lutto.treasurebattle.commands.tabcompleters.ArenaTabCompleter
 import me.lutto.treasurebattle.commands.tabcompleters.GiveItemTabCompleter
+import me.lutto.treasurebattle.enchantment.armorer.*
+import me.lutto.treasurebattle.enchantment.warrior.*
 import me.lutto.treasurebattle.listeners.ConnectListener
 import me.lutto.treasurebattle.listeners.GameListener
 import me.lutto.treasurebattle.listeners.QuestListener
-import me.lutto.treasurebattle.listeners.enchantments.armorer.BoomstrikeEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.armorer.AgilityEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.armorer.EvaderEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.armorer.VitalityEnchantmentListener
-import me.lutto.treasurebattle.listeners.enchantments.warrior.VampiricEnchantmentListener
 import me.lutto.treasurebattle.listeners.items.InstaFurnaceListener
 import me.lutto.treasurebattle.manager.ArenaManager
 import me.lutto.treasurebattle.manager.ConfigManager
@@ -42,13 +39,13 @@ class TreasureBattle : JavaPlugin() {
         Bukkit.getPluginManager().registerEvents(InstaFurnaceListener(this), this)
 
         // armorer enchantment listeners
-        Bukkit.getPluginManager().registerEvents(VampiricEnchantmentListener(this), this)
+        Bukkit.getPluginManager().registerEvents(VampiricEnchantment(this), this)
 
         // armorer enchantment listeners
-        Bukkit.getPluginManager().registerEvents(AgilityEnchantmentListener(this), this)
-        Bukkit.getPluginManager().registerEvents(VitalityEnchantmentListener(this), this)
-        Bukkit.getPluginManager().registerEvents(EvaderEnchantmentListener(this), this)
-        Bukkit.getPluginManager().registerEvents(BoomstrikeEnchantmentListener(this), this)
+        Bukkit.getPluginManager().registerEvents(AgilityEnchantment(this), this)
+        Bukkit.getPluginManager().registerEvents(VitalityEnchantment(this), this)
+        Bukkit.getPluginManager().registerEvents(EvaderEnchantment(this), this)
+        Bukkit.getPluginManager().registerEvents(BoomstrikeEnchantment(this), this)
 
         getCommand("arena")?.setExecutor(ArenaCommand(this))
         getCommand("arena")?.tabCompleter = ArenaTabCompleter()

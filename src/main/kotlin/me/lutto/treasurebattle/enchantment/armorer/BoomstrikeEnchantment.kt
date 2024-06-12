@@ -1,14 +1,20 @@
-package me.lutto.treasurebattle.listeners.enchantments.armorer
+package me.lutto.treasurebattle.enchantment.armorer
 
 import me.lutto.treasurebattle.TreasureBattle
+import me.lutto.treasurebattle.enchantment.CustomEnchantmentItem
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.Location
-import org.bukkit.NamespacedKey
+import org.bukkit.Material
+import org.bukkit.enchantments.Enchantment
+import org.bukkit.enchantments.EnchantmentTarget
 import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.Entity
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
-import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.util.EulerAngle
@@ -18,8 +24,14 @@ import kotlin.math.acos
 import kotlin.math.sqrt
 import kotlin.random.Random
 
+class BoomstrikeEnchantment(private val treasureBattle: TreasureBattle) : CustomEnchantmentItem(
+    "boomstrike",
+    "Boomstrike",
+    EnchantmentTarget.WEARABLE) {
 
-class BoomstrikeEnchantmentListener(val treasureBattle: TreasureBattle) : Listener {
+    init {
+        treasureBattle.itemManager.registerEnchantmentItem(this)
+    }
 
     private fun getEntityFromEntityDirection(entity: Entity, lookingLocation: Location): Location? {
         if (entity.world !== lookingLocation.world) return null
@@ -77,13 +89,17 @@ class BoomstrikeEnchantmentListener(val treasureBattle: TreasureBattle) : Listen
                 player.inventory.itemInMainHand
             } else return
 
-        val key = NamespacedKey(treasureBattle, "custom_enchantment")
-        if (!shield.itemMeta.persistentDataContainer.has(key)) return
+        if (!treasureBattle.itemManager.isItem(shield, this.id)) return
 
         val randomInt: Int = Random.nextInt(1, 100)
-        if (randomInt < 95) return
+        if (randomInt < 80) return
 
         explode(player)
     }
+
+    override fun getMaterial(): Material = Material.SHIELD
+    override fun getPairedEnchantment(): Enchantment = Enchantment.DURABILITY
+    override fun getItemName(): Component = MiniMessage.miniMessage().deserialize("<gradient:#7a0000:#c70000>ʙᴏᴏᴍѕᴛʀɪᴋᴇ ѕʜɪᴇʟᴅ").decoration(TextDecoration.ITALIC, false)
+    override fun getItemLore(): Component = MiniMessage.miniMessage().deserialize("Explosive defense!").color(NamedTextColor.DARK_GRAY)
 
 }
