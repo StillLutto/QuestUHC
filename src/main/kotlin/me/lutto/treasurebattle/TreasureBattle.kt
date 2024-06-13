@@ -38,7 +38,8 @@ class TreasureBattle : JavaPlugin() {
 
         Bukkit.getPluginManager().registerEvents(InstaFurnaceListener(this), this)
 
-        // armorer enchantment listeners
+        // warrior enchantment listeners
+        Bukkit.getPluginManager().registerEvents(ThunderstruckEnchantment(this), this)
         Bukkit.getPluginManager().registerEvents(VampiricEnchantment(this), this)
 
         // armorer enchantment listeners
